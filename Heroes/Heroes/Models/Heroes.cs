@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 
+
 namespace Heroes.Models
 {
+    [Serializable]
     public class Heroes
     {
         //Varibles de Clase Heroe

@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Heroes.Models
 {
+    [Serializable]
     public class Heroe_Modelo : Heroes
     {
 

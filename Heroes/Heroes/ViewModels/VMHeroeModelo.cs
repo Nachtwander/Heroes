@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -11,19 +13,21 @@ using Xamarin.Forms;
 
 namespace Heroes.ViewModels
 {
+    [Serializable]
     public class VMHeroeModelo : INotifyPropertyChanged
     {
+
+        //Ruta de guardado de serializacion
+        string ruta = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "Heroes_Modelos.bin");
+
+
 
         /* ------------------------------------------- Observable Collections ---------------------------------------*/
 
         //OBC que almacena Heroe Modelo
         public ObservableCollection<Heroe_Modelo> ListaHM { get; set; } = new ObservableCollection<Heroe_Modelo>();
 
-        //OBC almacena ataques de Heroe Modelo
-        public List<String> ListaPoderesHM { get; set; } = new List<String>();
-
-        //OBC almacena ataques de Heroe Modelo
-        public ObservableCollection<Heroe_Modelo> ListaAtaquesHM { get; set; } = new ObservableCollection<Heroe_Modelo>();
+    
 
         //Observable Collection de pequeños heroes  
         public ObservableCollection<PequeñosHeroes> ListaPequeñosHeroes { get; set; } = new ObservableCollection<PequeñosHeroes>();
@@ -39,21 +43,31 @@ namespace Heroes.ViewModels
         //como parámetro y lo utiliza para inicializar el objeto creado a partir de la clase "VMHeroeModelo
         public VMHeroeModelo()
         {
-
-
             CrearHM = new Command(() => {
 
 
-
-                ListaHM.Add(new Heroe_Modelo()
+                Heroe_Modelo HM = new Heroe_Modelo()
                 {
                     nombre = nombreHM,
                     IdentidadSecreta = idSecretaHM,
                     ColorPreferido = colorPreferidoHM,
                     TipoHeroe = "Modelo",
-                    
-                });
-                 
+
+                };
+
+
+                Models.Heroes.lista(HM);
+
+
+                //Rutina de Serializacion
+                BinaryFormatter formatter = new BinaryFormatter();
+                MemoryStream memory = new MemoryStream();
+                formatter.Serialize(memory, HM);
+                byte[] SerializedData = memory.ToArray();
+                memory.Close();
+                File.WriteAllBytes(ruta, SerializedData);
+
+
 
                 var pagina = new ViewSeleccion_Heroes_Modelo();
 
@@ -62,6 +76,14 @@ namespace Heroes.ViewModels
 
 
             });
+
+
+
+            
+
+           
+
+
 
 
             //posible comando para ingresar poderes en un heroe modelo
@@ -92,10 +114,28 @@ namespace Heroes.ViewModels
 
 
 
-      
+
 
 
         /* ------------------------------------------- Variables  ---------------------------------------*/
+
+        //variable Privada usuario
+        string HMnombre;
+
+        //Varible publica Usuario que recibira los datos y dalar valor a la variable privada usuario
+        public string hMnombre
+        {
+            get => HMnombre;
+
+            set
+            {
+                HMnombre = value;
+                OnPropertyChanged(nameof(hMnombre));
+            }
+        }
+
+
+
 
 
         //Variable Privada del nombre del Heroe

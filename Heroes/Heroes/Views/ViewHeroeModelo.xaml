@@ -30,7 +30,7 @@
             
             <Button Command="{Binding CrearHM}"  Text="Crear Heroe Modelo" TextColor="#3c3c3c" BackgroundColor="#2196f3"  FontAttributes="Bold" Margin="0,20,0,0"></Button>
 
-            <Label Text="{Binding HeroeM}" TextColor="White" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+            <Label Text="{Binding hMnombre}" TextColor="White" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold"/>
 
 
 

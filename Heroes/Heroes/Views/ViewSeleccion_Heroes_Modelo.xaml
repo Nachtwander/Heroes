@@ -1,12 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Heroes.Views.ViewSeleccion_Heroes_Modelo">
+             x:Class="Heroes.Views.ViewSeleccion_Heroes_Modelo"
+             xmlns:local="clr-namespace:Heroes.ViewModels"
+             BackgroundColor="#000000"
+             
+             
+             >
+
+    <ContentPage.BindingContext>
+
+        <local:VMMenuHM></local:VMMenuHM>
+        
+    </ContentPage.BindingContext>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <StackLayout VerticalOptions="CenterAndExpand" Padding="30">
+
+
+
+
+            <!--CollectionView con binding a la observablecollection ListaMenu de la Clase MenuHeroes con selectionmode single
+            que permite seleccionar solo un elemento en la coleccion, se uso SelectionChangedCommand para redirigir
+            a ViewHeroeModelo-->
+            <Label Text="Lista Heroes Modelos" TextColor="White"></Label>
+            <CollectionView  
+                              ItemsSource="{Binding listaHM}"
+                                                                    >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Margin="0,0,0,10">
+                                <Label Text="{Binding nombre}" FontSize="18" TextColor="White"/>
+                                <Label Text="{Binding IdentidadSecreta}" FontSize="18" TextColor="White"/>
+
+                                <Label Text="{Binding ColorPreferido}" FontSize="18" TextColor="White"/>
+                                <Label Text="{Binding listAtaques}" FontSize="18" TextColor="White"/>
+                                <Label Text="{Binding Poder}" FontSize="18" TextColor="White"/>
+                                
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+            </StackLayout>
     </ContentPage.Content>
 </ContentPage>
