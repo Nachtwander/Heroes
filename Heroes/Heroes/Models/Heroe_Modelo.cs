@@ -10,7 +10,7 @@ namespace Heroes.Models
     {
 
         
-
+        public ObservableCollection<PequeñosHeroes> ListaPequeñosHeroes { get; set; } = new ObservableCollection<PequeñosHeroes> ();
 
 
         //Polimorfismo del metodo ToString de Super clase SuperHeroe 
@@ -19,7 +19,8 @@ namespace Heroes.Models
             return $" {nombre} - {ColorPreferido} -{IdentidadSecreta} - {TipoHeroe}  ";
         }
 
-        /*
+       
+
 
         //Polimorfismo
         //Por Cada variable x de tipo String en Lista de poderes,
@@ -78,7 +79,7 @@ namespace Heroes.Models
             return $"Los Heroes Pequeños Formados por {nombre} son:" + "\n" + $" {HeroesP} ";
         }
 
-        */
+        
     
 
 

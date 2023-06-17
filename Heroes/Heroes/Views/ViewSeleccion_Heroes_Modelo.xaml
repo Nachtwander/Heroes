@@ -6,11 +6,13 @@
              BackgroundColor="#000000"
              
              
+             
              >
 
     <ContentPage.BindingContext>
 
         <local:VMMenuHM></local:VMMenuHM>
+        
         
     </ContentPage.BindingContext>
 
@@ -24,27 +26,19 @@
             que permite seleccionar solo un elemento en la coleccion, se uso SelectionChangedCommand para redirigir
             a ViewHeroeModelo-->
             <Label Text="Lista Heroes Modelos" TextColor="White"></Label>
-            <CollectionView  
-                              ItemsSource="{Binding listaHM}"
-                                                                    >
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Margin="0,0,0,10">
-                                <Label Text="{Binding nombre}" FontSize="18" TextColor="White"/>
-                                <Label Text="{Binding IdentidadSecreta}" FontSize="18" TextColor="White"/>
+                                                              
+                <CollectionView ItemsSource="{Binding listaHM}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="20" RowDefinitions="Auto, *, Auto">
+                                <Label Text="{Binding nombre}" Grid.Column="0" Grid.Row="0" FontSize="18" TextColor="White"/>
+                                <Label Text="{Binding IdentidadSecreta}" Grid.Column="0" Grid.Row="1" FontSize="18" TextColor="White"/>
+                                <Label Text="{Binding ColorPreferido}" Grid.Column="0" Grid.Row="2" FontSize="18" TextColor="White"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
-                                <Label Text="{Binding ColorPreferido}" FontSize="18" TextColor="White"/>
-                                <Label Text="{Binding listAtaques}" FontSize="18" TextColor="White"/>
-                                <Label Text="{Binding Poder}" FontSize="18" TextColor="White"/>
-                                
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-
-            </CollectionView>
-
-            </StackLayout>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

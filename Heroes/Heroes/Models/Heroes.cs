@@ -26,7 +26,7 @@ namespace Heroes.Models
         public ObservableCollection<string> listAtaques { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> listPoderes { get; set; } = new ObservableCollection<string>();
 
-        public List<Heroes> listHeroes = new List<Heroes>();
+        public static ObservableCollection<Heroes> listHeroes = new ObservableCollection<Heroes>();
 
         //Metodo toString Super Clase
         public override string ToString()

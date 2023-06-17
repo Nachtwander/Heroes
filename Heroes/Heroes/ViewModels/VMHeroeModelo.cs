@@ -20,20 +20,8 @@ namespace Heroes.ViewModels
         //Ruta de guardado de serializacion
         string ruta = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "Heroes_Modelos.bin");
 
-
-
-        /* ------------------------------------------- Observable Collections ---------------------------------------*/
-
-        //OBC que almacena Heroe Modelo
-        public ObservableCollection<Heroe_Modelo> ListaHM { get; set; } = new ObservableCollection<Heroe_Modelo>();
-
-    
-
-        //Observable Collection de pequeños heroes  
-        public ObservableCollection<PequeñosHeroes> ListaPequeñosHeroes { get; set; } = new ObservableCollection<PequeñosHeroes>();
-
-        /* ---------------------------------------  Fin Observable Collections  ---------------------------------------*/
-
+        public ObservableCollection<Heroe_Modelo> listaHM { get; set; } = new ObservableCollection<Heroe_Modelo>();
+        public Heroe_Modelo HM { get; }
 
 
         /* ------------------------------------------- Metodo Constructor ---------------------------------------*/
@@ -48,21 +36,21 @@ namespace Heroes.ViewModels
 
                 Heroe_Modelo HM = new Heroe_Modelo()
                 {
-                    nombre = nombreHM,
-                    IdentidadSecreta = idSecretaHM,
-                    ColorPreferido = colorPreferidoHM,
+                    nombre = this.nombreHM,
+                    IdentidadSecreta = this.idSecretaHM,
+                    ColorPreferido = this.colorPreferidoHM,
                     TipoHeroe = "Modelo",
 
                 };
 
-
-                Models.Heroes.lista(HM);
+                listaHM.Add(HM);
+                
 
 
                 //Rutina de Serializacion
                 BinaryFormatter formatter = new BinaryFormatter();
                 MemoryStream memory = new MemoryStream();
-                formatter.Serialize(memory, HM);
+                formatter.Serialize(memory, listaHM);
                 byte[] SerializedData = memory.ToArray();
                 memory.Close();
                 File.WriteAllBytes(ruta, SerializedData);
@@ -76,15 +64,6 @@ namespace Heroes.ViewModels
 
 
             });
-
-
-
-            
-
-           
-
-
-
 
             //posible comando para ingresar poderes en un heroe modelo
             GetPoderesHM = new Command(() => {
@@ -110,13 +89,6 @@ namespace Heroes.ViewModels
         /* ------------------------------------------- Fin Metodo Constructor ---------------------------------------*/
 
 
-
-
-
-
-
-
-
         /* ------------------------------------------- Variables  ---------------------------------------*/
 
         //variable Privada usuario
@@ -133,8 +105,6 @@ namespace Heroes.ViewModels
                 OnPropertyChanged(nameof(hMnombre));
             }
         }
-
-
 
 
 
@@ -217,9 +187,6 @@ namespace Heroes.ViewModels
         public Command GetPoderesHM { get; set; }
 
         /* ------------------------------------------- Fin Comandos---------------------------------------*/
-
-
-
 
 
 

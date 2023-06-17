@@ -15,31 +15,43 @@ namespace Heroes.ViewModels
         //Ruta de guardado de serializacion
         string ruta = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "Heroes_Modelos.bin");
 
-        public ObservableCollection<Heroe_Modelo> listaHM { get; set; } = new ObservableCollection<Heroe_Modelo>();
-
+        
+        
         
 
 
-        public VMMenuHM(Heroe_Modelo HM) 
+        public VMMenuHM() 
         {
 
-           listaHM = new ObservableCollection<Heroe_Modelo>();
+
 
             try
             {
-                // Abrir y leer el archivo
-                byte[] data = File.ReadAllBytes(ruta);
-                MemoryStream memory = new MemoryStream(data);
-                BinaryFormatter formatter = new BinaryFormatter();
-                listaHM = (ObservableCollection <Heroe_Modelo>)formatter.Deserialize(memory);
-                memory.Close();
+                // Verificar si el archivo existe
+                if (File.Exists(ruta))
+                {
+                    // Abrir y leer el archivo
+                    byte[] data = File.ReadAllBytes(ruta);
+                    MemoryStream memory = new MemoryStream(data);
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    listaHM = (ObservableCollection<Heroe_Modelo>)formatter.Deserialize(memory);
+                    memory.Close();
+                }
+                else
+                {
+                    // El archivo no existe, se crea una nueva lista vacía
+                    listaHM = new ObservableCollection<Heroe_Modelo>();
+                }
             }
-            catch (FileNotFoundException)
+            catch (Exception ex)
             {
-                // El archivo no existe, se crea una nueva lista vacía
-                
+                // Manejar cualquier excepción que ocurra durante la carga de datos
+                Console.WriteLine("Error al cargar los datos: " + ex.Message);
+                listaHM = new ObservableCollection<Heroe_Modelo>();
             }
 
+
+            
 
 
 
@@ -49,21 +61,8 @@ namespace Heroes.ViewModels
         }
 
 
-        Heroe_Modelo HM;
-
-        public Heroe_Modelo hm
-        {
-            get => HM;
-
-            set
-            {
-                HM = value;
-                OnPropertyChanged(nameof(hm));
-            }
-        }
-
-
-
+        public ObservableCollection<Heroe_Modelo> listaHM { get; set; } = new ObservableCollection<Heroe_Modelo>();
+        
 
         private void OnPropertyChanged(string propertyName)
         {
