@@ -28,6 +28,7 @@ namespace Heroes.Models
 
         
 
+
         //Metodo toString Super Clase
         public override string ToString()
         {

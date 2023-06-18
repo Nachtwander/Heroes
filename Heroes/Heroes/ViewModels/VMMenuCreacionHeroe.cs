@@ -43,6 +43,8 @@ namespace Heroes.ViewModels
                 switch (OpcionSeleccionada.texto)
                 {
                     case "Ver Lista de Heroes":
+                        var pagina3 = new ViewListaHeroes();
+                        Application.Current.MainPage.Navigation.PushAsync(pagina3);
 
                         break;
 
@@ -55,6 +57,10 @@ namespace Heroes.ViewModels
                         break;
 
                     case "Salir":
+
+                        var pagina2 = new MainPage();
+                        Application.Current.MainPage.Navigation.PushAsync(pagina2);
+
                         break;
                 }
 

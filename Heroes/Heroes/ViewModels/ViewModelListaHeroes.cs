@@ -5,28 +5,24 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Net.NetworkInformation;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Xamarin.Forms;
 
 namespace Heroes.ViewModels
 {
-    public class VMMenuHM : INotifyPropertyChanged
+    public class ViewModelListaHeroes : INotifyPropertyChanged
     {
-        //Ruta de guardado de serializacion
         string ruta = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "Heroes_Modelos.bin");
+        public ObservableCollection<Heroe_Modelo> listaHM { get; set; } = new ObservableCollection<Heroe_Modelo>();
 
-        
-        
-        
+        public ObservableCollection<PequeñosHeroes> ListaPH { get; set; } = new ObservableCollection<PequeñosHeroes>();
 
 
-        public VMMenuHM() 
+
+        public ViewModelListaHeroes() 
         {
-
-
-
             try
             {
                 // Verificar si el archivo existe
@@ -38,6 +34,18 @@ namespace Heroes.ViewModels
                     BinaryFormatter formatter = new BinaryFormatter();
                     listaHM = (ObservableCollection<Heroe_Modelo>)formatter.Deserialize(memory);
                     memory.Close();
+
+                    foreach (Heroe_Modelo HM in listaHM)
+                    {
+                        if (HM.ListaPequeñosHeroes != null)
+                        {
+                            // Recorrer la lista de PequeñosHeroes y agregarlos a la ListaPH
+                            foreach (PequeñosHeroes pequenoHeroe in HM.ListaPequeñosHeroes)
+                            {
+                                ListaPH.Add(pequenoHeroe);
+                            }
+                        }
+                    };
                 }
                 else
                 {
@@ -61,13 +69,23 @@ namespace Heroes.ViewModels
 
             });
 
+
+
+
         }
+
+
+
+
+
+
+
 
 
         public Command VolverMenu { get; set; }
 
-        public ObservableCollection<Heroe_Modelo> listaHM { get; set; } = new ObservableCollection<Heroe_Modelo>();
-        
+
+
 
         private void OnPropertyChanged(string propertyName)
         {
