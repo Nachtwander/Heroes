@@ -41,6 +41,15 @@ namespace Heroes.ViewModels
         {
             CrearHM = new Command(() => {
 
+                int dañoHM = 0;
+                foreach (string ataque in ListaAtaques)
+                {
+
+                   dañoHM = dañoHM + 70;
+
+
+                }
+
 
                 Heroe_Modelo HM = new Heroe_Modelo()
                 {
@@ -48,7 +57,7 @@ namespace Heroes.ViewModels
                     IdentidadSecreta = this.idSecretaHM,
                     ColorPreferido = this.colorPreferidoHM,
                     TipoHeroe = "Modelo",
-                    
+                    Daño = dañoHM
 
                 };
 
@@ -159,6 +168,15 @@ namespace Heroes.ViewModels
                                         var personasRescatadas = await Application.Current.MainPage.DisplayPromptAsync("Crear Pequeño Héroe", $"Ingrese la cantidad de personas rescatadas para el Pequeño Héroe {i + 1}", "Aceptar", "Cancelar", keyboard: Keyboard.Numeric);
                                         if (!string.IsNullOrEmpty(personasRescatadas) && int.TryParse(personasRescatadas, out int cantidadPersonasRescatadas))
                                         {
+
+                                            int dañoPH = 0;
+                                            foreach (string ataquesPH in ListaAtaquesPH)
+                                            {
+
+                                                dañoPH = dañoPH + 50;
+
+
+                                            }
                                             PequeñosHeroes pequenoHeroe = new PequeñosHeroes
                                             {
                                                 Nombre = nombre,
@@ -166,7 +184,8 @@ namespace Heroes.ViewModels
                                                 Nivel = nivelInt,
                                                 PersonasRescatadas = cantidadPersonasRescatadas,
                                                 TipoHeroe = "Pequeño",
-                                                ColorPreferido = colorPreferido
+                                                ColorPreferido = colorPreferido,
+                                                Daño= dañoPH
                                             };
                                             pequenoHeroe.listAtaques = this.ListaAtaquesPH;
                                             pequenoHeroe.listPoderes = this.ListaPoderesPH;
