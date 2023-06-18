@@ -21,10 +21,14 @@ namespace Heroes.ViewModels
         string ruta = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "Heroes_Modelos.bin");
 
         public ObservableCollection<Heroe_Modelo> listaHM { get; set; } = new ObservableCollection<Heroe_Modelo>();
-        public Heroe_Modelo HM { get; }
+        public ObservableCollection<PequeñosHeroes> ListaPH { get; set; } = new ObservableCollection<PequeñosHeroes>();
 
         public ObservableCollection<string> ListaAtaques { get; set; } = new ObservableCollection<string>();
+        
         public ObservableCollection<string> ListaPoderes { get; set; } = new ObservableCollection<string>();
+
+        public ObservableCollection<string> ListaAtaquesPH { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<string> ListaPoderesPH { get; set; } = new ObservableCollection<string>();
 
 
         /* ------------------------------------------- Metodo Constructor ---------------------------------------*/
@@ -51,6 +55,7 @@ namespace Heroes.ViewModels
                 ListaPoderes.Add(Poder);
                 HM.listPoderes = this.ListaPoderes;
                 HM.listAtaques = this.ListaAtaques;
+                HM.ListaPequeñosHeroes = ListaPH;
                 listaHM.Add(HM);
                 
 
@@ -98,6 +103,11 @@ namespace Heroes.ViewModels
                 }
             });
 
+            CrearPequenoHeroe = new Command(async () => await CrearPequenoHeroeAsync());
+
+
+
+
 
 
         }
@@ -105,7 +115,81 @@ namespace Heroes.ViewModels
         /* ------------------------------------------- Fin Metodo Constructor ---------------------------------------*/
 
 
+
+
+        private async Task CrearPequenoHeroeAsync()
+        {
+            for (int i = 0; i < CantidadPequeñosHeroes; i++)
+            {
+                var ataques = await Application.Current.MainPage.DisplayPromptAsync("Crear Ataques", $"Ingrese la cantidad de ataques para el Pequeño Héroe {i + 1}", "Aceptar", "Cancelar", keyboard: Keyboard.Numeric);
+                if (!string.IsNullOrEmpty(ataques) && int.TryParse(ataques, out int cantidadAtaques))
+                {
+
+                    for (int j = 0; j < cantidadAtaques; j++)
+                    {
+                        string AtaquesPH = await Application.Current.MainPage.DisplayPromptAsync("Crear Ataque", $"Ingrese el nombre del ataque {j + 1} para el Pequeño Héroe {i + 1}", "Aceptar", "Cancelar");
+                        if (!string.IsNullOrWhiteSpace(AtaquesPH))
+                            this.ListaAtaquesPH.Add(AtaquesPH);
+                    }
+
+                    var poderes = await Application.Current.MainPage.DisplayPromptAsync("Crear Poderes", $"Ingrese la cantidad de poderes para el Pequeño Héroe {i + 1}", "Aceptar", "Cancelar", keyboard: Keyboard.Numeric);
+                    if (!string.IsNullOrEmpty(poderes) && int.TryParse(poderes, out int cantidadPoderes))
+                    {
+                        var listaPoderes = new ObservableCollection<string>();
+                        for (int j = 0; j < cantidadPoderes; j++)
+                        {
+                            var poder = await Application.Current.MainPage.DisplayPromptAsync("Crear Poder", $"Ingrese el nombre del poder {j + 1} para el Pequeño Héroe {i + 1}", "Aceptar", "Cancelar");
+                            if (!string.IsNullOrWhiteSpace(poder))
+                                listaPoderes.Add(poder);
+                        }
+
+                        var nombre = await Application.Current.MainPage.DisplayPromptAsync("Crear Pequeño Héroe", $"Ingrese el nombre para el Pequeño Héroe {i + 1}", "Aceptar", "Cancelar");
+                        if (!string.IsNullOrWhiteSpace(nombre))
+                        {
+                            var identidadSecreta = await Application.Current.MainPage.DisplayPromptAsync("Crear Pequeño Héroe", $"Ingrese la identidad secreta para el Pequeño Héroe {i + 1}", "Aceptar", "Cancelar");
+                            if (!string.IsNullOrWhiteSpace(identidadSecreta))
+                            {
+                                var nivel = await Application.Current.MainPage.DisplayPromptAsync("Crear Pequeño Héroe", $"Ingrese el nivel para el Pequeño Héroe {i + 1}", "Aceptar", "Cancelar");
+                                if (!string.IsNullOrWhiteSpace(nivel) && int.TryParse(nivel, out int nivelInt))
+                                {
+                                    var personasRescatadas = await Application.Current.MainPage.DisplayPromptAsync("Crear Pequeño Héroe", $"Ingrese la cantidad de personas rescatadas para el Pequeño Héroe {i + 1}", "Aceptar", "Cancelar", keyboard: Keyboard.Numeric);
+                                    if (!string.IsNullOrEmpty(personasRescatadas) && int.TryParse(personasRescatadas, out int cantidadPersonasRescatadas))
+                                    {
+                                        PequeñosHeroes pequenoHeroe = new PequeñosHeroes
+                                        {
+                                            Nombre = nombre,
+                                            IdentidadSecreta = identidadSecreta,
+                                            Nivel = nivelInt,
+                                            PersonasRescatadas = cantidadPersonasRescatadas,
+
+                                        };
+                                        pequenoHeroe.listAtaques = this.ListaAtaquesPH;
+                                        pequenoHeroe.listPoderes = this.ListaPoderesPH;
+
+                                        ListaPH.Add(pequenoHeroe);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
         /* ------------------------------------------- Variables  ---------------------------------------*/
+
+
+        int cantidadPequeñosHeroes;
+        public int CantidadPequeñosHeroes {
+
+            get => cantidadPequeñosHeroes;
+            set
+            {
+                cantidadPequeñosHeroes = value;
+                OnPropertyChanged(nameof(CantidadPequeñosHeroes));
+            }
+        }
 
 
 
@@ -263,7 +347,9 @@ namespace Heroes.ViewModels
         public Command CrearHM { get; set; }
 
         //comando get poderes
-       
+
+        public Command CrearPequenoHeroe { get; set; }
+
 
         /* ------------------------------------------- Fin Comandos---------------------------------------*/
 

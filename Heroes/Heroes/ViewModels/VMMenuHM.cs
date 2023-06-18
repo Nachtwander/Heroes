@@ -58,13 +58,7 @@ namespace Heroes.ViewModels
                     HeroeSeleccionado = OpcionSeleccionada; // Asigna el héroe modelo seleccionado
 
                     
-                    //Rutina de Serializacion
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    MemoryStream memory = new MemoryStream();
-                    formatter.Serialize(memory, listaHM);
-                    byte[] SerializedData = memory.ToArray();
-                    memory.Close();
-                    File.WriteAllBytes(ruta, SerializedData);
+                    
 
 
                 }
@@ -72,13 +66,23 @@ namespace Heroes.ViewModels
 
             });
 
-
+            
 
 
 
 
 
         }
+
+
+
+       
+
+
+
+
+
+
 
         Heroe_Modelo opcionSeleccionada;
 
@@ -96,6 +100,8 @@ namespace Heroes.ViewModels
         public Heroe_Modelo HeroeSeleccionado { get; set; }
 
 
+
+        public Command AgregarHeroePequeno { get; }
         public Command Redireccion { get; }
 
         public ObservableCollection<Heroe_Modelo> listaHM { get; set; } = new ObservableCollection<Heroe_Modelo>();
