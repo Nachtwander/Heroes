@@ -16,7 +16,7 @@ namespace Heroes.Models
         //Polimorfismo del metodo ToString de Super clase SuperHeroe 
         public override string ToString()
         {
-            return $" {nombre} - {ColorPreferido} -{IdentidadSecreta} - {TipoHeroe}  ";
+            return $" {Nombre} - {ColorPreferido} -{IdentidadSecreta} - {TipoHeroe}  ";
         }
 
        
@@ -62,7 +62,7 @@ namespace Heroes.Models
             {
                 daño = daño + 70;
             }
-            return $"daño causado por sumatoria de los ataques de {nombre}: {daño} puntos de vida al enemigo. " + "\n";
+            return $"daño causado por sumatoria de los ataques de {Nombre}: {daño} puntos de vida al enemigo. " + "\n";
         }
 
         //Metodo exclusivo clase Heroes Modelos
@@ -76,7 +76,7 @@ namespace Heroes.Models
             {
                 HeroesP += x + "\n";
             }
-            return $"Los Heroes Pequeños Formados por {nombre} son:" + "\n" + $" {HeroesP} ";
+            return $"Los Heroes Pequeños Formados por {Nombre} son:" + "\n" + $" {HeroesP} ";
         }
 
         

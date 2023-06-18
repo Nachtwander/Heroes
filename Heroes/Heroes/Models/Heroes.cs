@@ -10,7 +10,7 @@ namespace Heroes.Models
     public class Heroes
     {
         //Varibles de Clase Heroe
-        public string nombre { get; set; }
+        public string Nombre { get; set; }
         public string ColorPreferido { get; set; }
         public string Poder { get; set; }
         public string IdentidadSecreta { get; set; }
@@ -26,12 +26,12 @@ namespace Heroes.Models
         public ObservableCollection<string> listAtaques { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> listPoderes { get; set; } = new ObservableCollection<string>();
 
-        public static ObservableCollection<Heroes> listHeroes = new ObservableCollection<Heroes>();
+        
 
         //Metodo toString Super Clase
         public override string ToString()
         {
-            return $" Nombre del Heroe: {nombre} Color Preferido: {ColorPreferido} Identidad Secreta:{IdentidadSecreta} Tipo de Heroe: {TipoHeroe}";
+            return $" Nombre del Heroe: {Nombre} Color Preferido: {ColorPreferido} Identidad Secreta:{IdentidadSecreta} Tipo de Heroe: {TipoHeroe}";
         }
 
 

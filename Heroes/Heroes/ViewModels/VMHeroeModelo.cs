@@ -23,6 +23,9 @@ namespace Heroes.ViewModels
         public ObservableCollection<Heroe_Modelo> listaHM { get; set; } = new ObservableCollection<Heroe_Modelo>();
         public Heroe_Modelo HM { get; }
 
+        public ObservableCollection<string> ListaAtaques { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<string> ListaPoderes { get; set; } = new ObservableCollection<string>();
+
 
         /* ------------------------------------------- Metodo Constructor ---------------------------------------*/
 
@@ -36,13 +39,18 @@ namespace Heroes.ViewModels
 
                 Heroe_Modelo HM = new Heroe_Modelo()
                 {
-                    nombre = this.nombreHM,
+                    Nombre = this.nombreHM,
                     IdentidadSecreta = this.idSecretaHM,
                     ColorPreferido = this.colorPreferidoHM,
                     TipoHeroe = "Modelo",
+                    
 
                 };
 
+                ListaAtaques.Add(ataque);
+                ListaPoderes.Add(Poder);
+                HM.listPoderes = this.ListaPoderes;
+                HM.listAtaques = this.ListaAtaques;
                 listaHM.Add(HM);
                 
 
@@ -66,22 +74,30 @@ namespace Heroes.ViewModels
             });
 
             //posible comando para ingresar poderes en un heroe modelo
-            GetPoderesHM = new Command(() => {
-
-
-               
-                
-
-
-
-
-                var pagina = new ViewSeleccion_Heroes_Modelo();
-
-                Application.Current.MainPage.Navigation.PushAsync(pagina);
-
-
-
+            CrearAtaques = new Command(async () =>
+            {
+                for (int i = 0; i < CantidadAtaques; i++)
+                {
+                    string ataque = await Application.Current.MainPage.DisplayPromptAsync("Crear Ataque", "Ingrese el nombre del ataque " + i, "Aceptar", "Cancelar", placeholder: "Ataque " + "\n");
+                    if (!string.IsNullOrWhiteSpace(ataque))
+                    {
+                        this.ListaAtaques.Add(ataque);
+                    }
+                }
             });
+
+            CrearPoderes = new Command(async () =>
+            {
+                for (int i = 0; i < CantidadPoderes; i++)
+                {
+                    string poder = await Application.Current.MainPage.DisplayPromptAsync("Crear Poder", "Ingrese el nombre del poder " + i, "Aceptar", "Cancelar", placeholder: "Poder " + "\n");
+                    if (!string.IsNullOrWhiteSpace(poder))
+                    {
+                        this.ListaPoderes.Add(poder);
+                    }
+                }
+            });
+
 
 
         }
@@ -90,6 +106,65 @@ namespace Heroes.ViewModels
 
 
         /* ------------------------------------------- Variables  ---------------------------------------*/
+
+
+
+        string poder;
+        public string Poder
+        {
+            get => poder;
+            set
+            {
+                poder = value;
+                OnPropertyChanged(nameof(Poder));
+            }
+        }
+
+
+
+
+
+        string ataque;
+        public string Ataque
+        {
+            get => ataque;
+            set
+            {
+                ataque = value;
+                OnPropertyChanged(nameof(Ataque));
+            }
+        }
+
+
+
+
+
+        int cantidadAtaques;
+        int cantidadPoderes;
+
+        public int CantidadAtaques
+        {
+            get => cantidadAtaques;
+            set
+            {
+                cantidadAtaques = value;
+                OnPropertyChanged(nameof(CantidadAtaques));
+            }
+        }
+
+        public int CantidadPoderes
+        {
+            get => cantidadPoderes;
+            set
+            {
+                cantidadPoderes = value;
+                OnPropertyChanged(nameof(CantidadPoderes));
+            }
+        }
+
+
+
+
 
         //variable Privada usuario
         string HMnombre;
@@ -180,11 +255,15 @@ namespace Heroes.ViewModels
 
         /* ------------------------------------------- Comandos ---------------------------------------*/
 
+        public Command CrearPoderes { get; set; }
+
+        public Command CrearAtaques { get; set; }
+
         //comando crear heroe
         public Command CrearHM { get; set; }
 
         //comando get poderes
-        public Command GetPoderesHM { get; set; }
+       
 
         /* ------------------------------------------- Fin Comandos---------------------------------------*/
 

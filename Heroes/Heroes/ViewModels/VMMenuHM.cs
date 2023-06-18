@@ -7,6 +7,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using Xamarin.Forms;
 
 namespace Heroes.ViewModels
 {
@@ -50,8 +51,27 @@ namespace Heroes.ViewModels
                 listaHM = new ObservableCollection<Heroe_Modelo>();
             }
 
+            Redireccion = new Command(() =>
+            {
+                if (OpcionSeleccionada != null)
+                {
+                    HeroeSeleccionado = OpcionSeleccionada; // Asigna el héroe modelo seleccionado
 
-            
+                    
+                    //Rutina de Serializacion
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    MemoryStream memory = new MemoryStream();
+                    formatter.Serialize(memory, listaHM);
+                    byte[] SerializedData = memory.ToArray();
+                    memory.Close();
+                    File.WriteAllBytes(ruta, SerializedData);
+
+
+                }
+
+
+            });
+
 
 
 
@@ -60,6 +80,23 @@ namespace Heroes.ViewModels
 
         }
 
+        Heroe_Modelo opcionSeleccionada;
+
+        public Heroe_Modelo OpcionSeleccionada
+        {
+            get => opcionSeleccionada;
+            set
+            {
+                opcionSeleccionada = value;
+                OnPropertyChanged(nameof(OpcionSeleccionada));
+            }
+
+        }
+
+        public Heroe_Modelo HeroeSeleccionado { get; set; }
+
+
+        public Command Redireccion { get; }
 
         public ObservableCollection<Heroe_Modelo> listaHM { get; set; } = new ObservableCollection<Heroe_Modelo>();
         

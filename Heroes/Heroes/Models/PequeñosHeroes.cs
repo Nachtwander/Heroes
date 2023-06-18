@@ -11,7 +11,7 @@ namespace Heroes.Models
         //Polimorfismo Metodo ToString de Clase SuperHeroe
         public override string ToString()
         {
-            return $" -Nombre del Heroe Pequeño: {nombre} -Color Preferido: {ColorPreferido} -Nivel {Nivel} -Personas Rescatadas: {PersonasRescatadas} -Identidad Secreta:{IdentidadSecreta} -Tipo de Heroe: {TipoHeroe}" + "\n";
+            return $" -Nombre del Heroe Pequeño: {Nombre} -Color Preferido: {ColorPreferido} -Nivel {Nivel} -Personas Rescatadas: {PersonasRescatadas} -Identidad Secreta:{IdentidadSecreta} -Tipo de Heroe: {TipoHeroe}" + "\n";
         }
 
        
