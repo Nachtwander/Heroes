@@ -12,7 +12,7 @@ namespace Heroes.Models
         //Varibles de Clase Heroe
         public string Nombre { get; set; }
         public string ColorPreferido { get; set; }
-        public string Poder { get; set; }
+       
         public string IdentidadSecreta { get; set; }
         public string TipoHeroe { get; set; }
         public int Nivel { get; set; }
@@ -26,26 +26,7 @@ namespace Heroes.Models
         public ObservableCollection<string> listAtaques { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> listPoderes { get; set; } = new ObservableCollection<string>();
 
-        
-
-
-        //Metodo toString Super Clase
-        public override string ToString()
-        {
-            return $" Nombre del Heroe: {Nombre} Color Preferido: {ColorPreferido} Identidad Secreta:{IdentidadSecreta} Tipo de Heroe: {TipoHeroe}";
-        }
-
-
-
-        //metodo Heredado para Obtener la cantidad de daño segun los ataques del heroe modelo o pequeño
-        public virtual void getDaño() { }
-
-        //metodo Heredado para Obtener la cantidad de ataques segun los ataques del heroe modelo o pequeño almacenados en lista de ataques
-        public virtual void getAtaques() { }
-
-        //metodo Heredado para Obtener la cantidad de poderes segun los poderes del heroe modelo o pequeño almacenados en lista de poderes
-        public virtual void getPoderes() { }
-
+       
 
     }
 }

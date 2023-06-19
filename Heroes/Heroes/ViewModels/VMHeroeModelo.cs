@@ -278,43 +278,6 @@ namespace Heroes.ViewModels
         }
 
 
-
-
-
-        //variable Privada usuario
-        string HMnombre;
-
-        //Varible publica Usuario que recibira los datos y dalar valor a la variable privada usuario
-        public string hMnombre
-        {
-            get => HMnombre;
-
-            set
-            {
-                HMnombre = value;
-                OnPropertyChanged(nameof(hMnombre));
-            }
-        }
-
-
-
-        //Variable Privada del nombre del Heroe
-        string poderHM;
-
-        //Variable Publica del nombre del Heroe
-        public string PoderHM
-        {
-            get => poderHM;
-
-            set
-            {
-                poderHM = value;
-                OnPropertyChanged(nameof(PoderHM));
-            }
-
-        }
-
-
         //Variable Privada del nombre del Heroe
         string nombreHM;
 
